@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: research-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  adminer:
+    image: adminer
+    container_name: research-adminer
+    ports:
+      - "8090:8080"
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  postgres_data:
